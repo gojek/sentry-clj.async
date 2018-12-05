@@ -4,7 +4,7 @@
             [raven-clj.core :as sentry]
             [raven-clj.interfaces :as interfaces])
   (:import (java.util.concurrent ThreadFactory ExecutorService ThreadPoolExecutor$DiscardPolicy TimeUnit
-                                 LinkedBlockingQueue ArrayBlockingQueue ThreadPoolExecutor RejectedExecutionHandler)
+                                 ArrayBlockingQueue ThreadPoolExecutor RejectedExecutionHandler)
            (com.google.common.util.concurrent ThreadFactoryBuilder MoreExecutors)
            (clojure.lang ExceptionInfo)))
 
@@ -40,18 +40,18 @@
   (if sync?
     (create-sync-executor)
     (create-thread-pool worker-count queue-size
-                                 (thread-factory "sentry-worker-%d")
-                                 (ThreadPoolExecutor$DiscardPolicy.))))
+                        (thread-factory "sentry-worker-%d")
+                        (ThreadPoolExecutor$DiscardPolicy.))))
 (defn sentry-report
-  [{:keys [workers config] :as sentry-reporter} level ^Throwable error & msgs]
+  [{:keys [workers config]} level ^Throwable error & msgs]
   (let [{:keys [enabled dsn env app-name]} config]
     (when enabled
-      (let [message        (string/join " " (if (instance? ExceptionInfo error)
-                                              (concat msgs ["\nData:" (ex-data error)])
-                                              msgs))
-            event          {:message     message
-                            :level       (name level)
-                            :environment (name env)}
+      (let [message (string/join " " (if (instance? ExceptionInfo error)
+                                       (concat msgs ["\nData:" (ex-data error)])
+                                       msgs))
+            event {:message     message
+                   :level       (name level)
+                   :environment (name env)}
             ^Runnable task #(try
                               (sentry/capture dsn
                                               (interfaces/stacktrace event error [app-name]))
@@ -76,20 +76,20 @@
 
 (defn create-reporter [{:keys [enabled dsn env app-name sync? worker-count queue-size thread-termination-wait-s]}]
   (let [enabled (if (nil? enabled) true enabled)
-        config  {:sync?                     (or sync? false)
-                 :enabled                   enabled
-                 :dsn                       dsn
-                 :env                       env
-                 :app-name                  app-name
-                 :worker-count              (or worker-count 10)
-                 :queue-size                (or queue-size 10)
-                 :thread-termination-wait-s (or thread-termination-wait-s 10)}]
+        config {:sync?                     (or sync? false)
+                :enabled                   enabled
+                :dsn                       dsn
+                :env                       env
+                :app-name                  app-name
+                :worker-count              (or worker-count 10)
+                :queue-size                (or queue-size 10)
+                :thread-termination-wait-s (or thread-termination-wait-s 10)}]
     {:config  config
      :workers (when enabled
                 (start-workers (select-keys config [:sync? :worker-count :queue-size])))}))
 
 (defn shutdown-reporter
-  [{:keys [config workers] :as sentry-reporter}]
+  [{:keys [config workers]}]
   (when workers
     (.shutdown ^ExecutorService workers)
     (.awaitTermination ^ExecutorService workers (:thread-termination-wait-s config) TimeUnit/SECONDS)

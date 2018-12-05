@@ -1,17 +1,18 @@
 # Sentry
 
-A Clojure library wrapper around sentry which gives abilty to send message in sync or async
+## Description
 
-## Usage
-
-Add it to `project.clj`: `[farm.gojek/sentry-clj.async "0.2.2"]`
+A Clojure library wrapper around [sentry](https://docs.sentry.io/) which gives abilty to send message in sync or async
 
 #### Initialization
 
-`(sentry-clj.async.core/create-reporter config)`
-will create a Sentry reporter. You should save this in an atom or a `mount` state.
+Sentry reporter can be created using the function:
 
-Where `config` is a map defined below with default configs
+`(sentry-clj.async/create-reporter config)`
+
+This should be stored in an atom or `mount` state, as this will be passed to the report macros.
+
+`config` is a map defined below with default values
 
 ```
 {:sync?                            false
@@ -26,21 +27,23 @@ Where `config` is a map defined below with default configs
 
 #### Reporting errors
 
-It exposes two macros:
+Events could be reported to sentry using one of the below macros:
 
-`(report-error sentry-reporter exception "message")` for reporting the error
+`(report-error sentry-reporter exception "message")` for reporting error
 
-`(report-warn sentry-reporter exception "message")` for reporting the warning
+`(report-warn sentry-reporter exception "message")` for reporting warning
 
 #### Shutting down
-`(sentry.core/shutdown-reporter sentry-reporter)`
+Sentry library provisions threads to handle async calls. This function releases the threads for graceful shutdown of application.
+
+`(sentry-clj.async/shutdown-reporter sentry-reporter)`
 
 
 ## Example:
 
 ```clojure
 (ns example
-  (:require [sentry-clj.async.core :as sentry]))
+  (:require [sentry-clj.async :as sentry]))
 
 (defonce reporter (atom nil))
 
@@ -67,4 +70,31 @@ It exposes two macros:
 ;; Shut down the reporter.
 (sentry/shutdown-reporter @reporter)
 (reset! reporter nil)
+```
+
+## License
+```
+Copyright 2018, GO-JEK Tech <http://gojek.tech>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+```
+Copyright 2017, Yleisradio Oy <http://yle.fi>
+
+The use and distribution terms for this software are covered by the
+Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+which can be found in the file epl-v10.html at the root of this distribution.
+By using this software in any fashion, you are agreeing to be bound by
+the terms of this license.
 ```
