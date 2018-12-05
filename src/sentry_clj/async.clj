@@ -1,11 +1,11 @@
-(ns sentry.core
+(ns sentry-clj.async
   (:require [clojure.string :as string]
             [clojure.tools.logging :as log]
-            [sentry.executor :as executor]
             [raven-clj.core :as sentry]
             [raven-clj.interfaces :as interfaces])
-  (:import (java.util.concurrent ThreadFactory ExecutorService ThreadPoolExecutor$DiscardPolicy TimeUnit)
-           (com.google.common.util.concurrent ThreadFactoryBuilder)
+  (:import (java.util.concurrent ThreadFactory ExecutorService ThreadPoolExecutor$DiscardPolicy TimeUnit
+                                 LinkedBlockingQueue ArrayBlockingQueue ThreadPoolExecutor RejectedExecutionHandler)
+           (com.google.common.util.concurrent ThreadFactoryBuilder MoreExecutors)
            (clojure.lang ExceptionInfo)))
 
 (declare report-error)
@@ -14,6 +14,19 @@
   (reify Thread$UncaughtExceptionHandler
     (uncaughtException [_ _ ex]
       (report-error ex "Uncaught error in Sentry worker"))))
+
+(defn- ^ExecutorService create-thread-pool
+  ([worker-count queue-size ^ThreadFactory thread-factory ^RejectedExecutionHandler rejection-policy]
+   (ThreadPoolExecutor. (int worker-count)
+                        (int worker-count)
+                        0
+                        TimeUnit/MILLISECONDS
+                        (ArrayBlockingQueue. (int queue-size))
+                        thread-factory
+                        rejection-policy)))
+
+(defn- ^ExecutorService create-sync-executor []
+  (MoreExecutors/newDirectExecutorService))
 
 (defn- ^ThreadFactory thread-factory [name-format]
   (-> (ThreadFactoryBuilder.)
@@ -25,8 +38,8 @@
 (defn- ^ExecutorService start-workers [{:keys [sync? worker-count queue-size]}]
   (log/info "Creating Sentry workers")
   (if sync?
-    (executor/create-sync-executor)
-    (executor/create-thread-pool worker-count queue-size
+    (create-sync-executor)
+    (create-thread-pool worker-count queue-size
                                  (thread-factory "sentry-worker-%d")
                                  (ThreadPoolExecutor$DiscardPolicy.))))
 (defn sentry-report
