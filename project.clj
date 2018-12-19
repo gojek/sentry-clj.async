@@ -6,7 +6,7 @@
   :repl-options {:host "0.0.0.0"
                  :port 1337}
   :dependencies [[com.google.guava/guava "23.0"]
-                 [org.clojure/clojure "1.9.0"]
+                 [org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.logging "0.4.1"]
                  [raven-clj "1.5.2"]]
   :profiles {:dev {:plugins [[jonase/eastwood "0.2.5"
