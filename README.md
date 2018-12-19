@@ -9,6 +9,10 @@
   </a>
 </p>
 
+* [Description](#description)
+* [Example](#example)
+* [License](#license)
+
 ## Description
 
 A Clojure library wrapper around [sentry](https://docs.sentry.io/) which gives abilty to send message in sync or async
