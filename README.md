@@ -1,4 +1,13 @@
-# Sentry
+# Sentry-clj.async
+
+<p align="center">
+  <a href="https://travis-ci.org/gojektech/sentry-clj.async">
+    <img src="https://travis-ci.org/gojektech/sentry-clj.async.svg?branch=master" alt="Build Status" />
+  </a>
+  <a href='https://coveralls.io/github/gojektech/sentry-clj.async'>
+    <img src='https://coveralls.io/repos/github/gojektech/sentry-clj.async/badge.svg' alt='Coverage Status' />
+  </a>
+</p>
 
 ## Description
 
@@ -16,7 +25,7 @@ This should be stored in an atom or `mount` state, as this will be passed to the
 
 ```
 {:sync?                            false
- :enabled                          true 
+ :enabled                          true
  :dsn                              "dummy"    ;; to be populated
  :env                              "env"      ;; to be populated
  :app-name                         "app-name" ;; to be populated
