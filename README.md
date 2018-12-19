@@ -7,6 +7,9 @@
   <a href='https://coveralls.io/github/gojektech/sentry-clj.async'>
     <img src='https://coveralls.io/repos/github/gojektech/sentry-clj.async/badge.svg' alt='Coverage Status' />
   </a>
+  <a href='https://clojars.org/tech.gojek/sentry-clj.async'>
+    <img src='https://img.shields.io/clojars/v/tech.gojek/sentry-clj.async.svg' alt='Clojars Project' />
+  </a>
 </p>
 
 * [Description](#description)
