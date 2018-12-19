@@ -12,6 +12,7 @@
   :profiles {:dev {:plugins [[jonase/eastwood "0.2.5"
                               :exclusions [org.clojure/clojure]]
                              [lein-ancient "0.6.15"]
+                             [lein-cloverage "1.0.13"]
                              [lein-cljfmt "0.5.7"]
                              [lein-kibit "0.1.6"]]}})
 
