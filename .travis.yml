@@ -1,4 +1,6 @@
 language: clojure
 
-test:
+script:
+  - lein clean
+  - lein deps
   - lein test
