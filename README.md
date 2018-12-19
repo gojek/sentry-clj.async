@@ -87,7 +87,7 @@ Sentry library provisions threads to handle async calls. This function releases 
 
 ## License
 ```
-Copyright 2018, GO-JEK Farm <http://gojek.farm>
+Copyright 2018, GO-JEK Tech <http://gojek.farm>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

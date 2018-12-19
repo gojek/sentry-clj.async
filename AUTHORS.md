@@ -1,4 +1,4 @@
-> ⚠ This document _only_ reflects the team at the time of the original release in December 2018. For a list of people who have contributed to the codebase, see [GitHub's list of contributors](https://github.com/gojekfarm/sentry-clj.async/).
+> ⚠ This document _only_ reflects the team at the time of the original release in December 2018. For a list of people who have contributed to the codebase, see [GitHub's list of contributors](https://github.com/gojektech/sentry-clj.async/).
 
 # Sentry-clj.async - Authors
 

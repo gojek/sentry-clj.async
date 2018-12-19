@@ -1,6 +1,6 @@
 # Sentry-clj.async - Contributing
 
-[farm.gojek/sentry-clj.async](https://github.com/gojekfarm/sentry-clj.async) is an open-source
+[tech.gojek/sentry-clj.async](https://github.com/gojektech/sentry-clj.async) is an open-source
 project. It is licensed using the [Apache License 2.0][1]. We appreciate pull 
 requests; here are our guidelines:
 
@@ -9,7 +9,7 @@ requests; here are our guidelines:
     is going to be large it might be a good idea to get the
     discussion started early.  We are happy to discuss it in a
     new issue beforehand, and you can always email
-    <farm@go-jek.com> about future work.
+    <tech@go-jek.com> about future work.
 
 2.  Please follow this [Clojure Style Guide][3].
 
@@ -33,10 +33,10 @@ requests; here are our guidelines:
 
 Much Thanks! ❤ ❤ ❤
 
-GO-JEK Farm
+GO-JEK Tech
 
 [1]: http://www.apache.org/licenses/LICENSE-2.0
-[2]: https://github.com/gojekfarm/sentry-clj.async/issues
+[2]: https://github.com/gojektech/sentry-clj.async/issues
 [3]: https://github.com/bbatsov/clojure-style-guide
 [4]: http://gun.io/blog/how-to-github-fork-branch-and-pull-request
 [5]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
