@@ -1,6 +1,6 @@
 (defproject tech.gojek/sentry-clj.async "1.0.0"
   :description "An async library for pushing events to sentry"
-  :url "https://github.com/gojekfarm/sentry-clj.async"
+  :url "https://github.com/gojektech/sentry-clj.async"
   :license {:name "Apache License, Version 2.0"
             :url  "https://www.apache.org/licenses/LICENSE-2.0"}
   :repl-options {:host "0.0.0.0"
