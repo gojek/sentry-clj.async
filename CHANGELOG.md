@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 All notable changes to [tech.gojek/sentry-clj.async](https://github.com/gojektech/sentry-clj.async) will be documented in this file.
 
+## [1.0.1]
+### Added
+- Updates project url
+- Updates license description
+
 ## [1.0.0]
 ### Added
 - Initial Setup
