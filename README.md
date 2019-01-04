@@ -66,7 +66,7 @@ Sentry library provisions threads to handle async calls. This function releases 
 ;; Create a reporter and save it in a atom
 (reset! reporter (sentry/create-reporter {:sync?                            false
                                           :enabled                          true
-                                          :dsn                              "http://foo@gojek-sentry.golabs.io"
+                                          :dsn                              "http://<key>@sentry.io"
                                           :env                              :production
                                           :app-name                         "foo"
                                           ;; Number of worker threads.
